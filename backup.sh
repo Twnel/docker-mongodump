@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+set -ex
 
 echo "Job started: $(date)"
 
@@ -13,3 +13,4 @@ rm -rf dump/
 aws s3 cp ${FILE} s3://${S3_BUCKET} 
 curl --data "S3 => $S3_BUCKET: $FILE" "https://${SLACK_TEAM}.slack.com/services/hooks/slackbot?token=${SLACK_TOKEN}&channel=%23${SLACK_CHANNEL}"
 echo "Job finished: $(date)"
+exit 0
