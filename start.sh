@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+set -ex
 
 CRON_SCHEDULE=${CRON_SCHEDULE:-0 1 * * *}
 
@@ -9,7 +9,7 @@ if [[ "$1" == 'no-cron' ]]; then
 else
     LOGFIFO='/var/log/cron.fifo'
     if [[ ! -e "$LOGFIFO" ]]; then
-        mkfifo "$LOGFIFO"
+        mkfifo -m 777 "$LOGFIFO"
     fi
     CRON_ENV="MONGO_PORT_27017_TCP_ADDR='$MONGO_PORT_27017_TCP_ADDR'"
     CRON_ENV="$CRON_ENV\nMONGO_PORT_27017_TCP_PORT='$MONGO_PORT_27017_TCP_PORT'"
